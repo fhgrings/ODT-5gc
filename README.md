@@ -94,17 +94,6 @@ For a better cluster overview I recommend to install Lens IDE and connect to Kub
 - [x] ~~OpenTelemtry~~ (No Agent for gin/gonic)
 - [x] ~~Datadog~~ (No Agent for gin/gonic)
 
-#### Why did not work?
-
-Observability is based on instrumentation, hard coded or agents. It's necessary to change the HTTP call methods to log the inputs and outputs with monitoring headers. 
-
-Go does not natively support sidecars to change compiled code, so changes need to be made inside the code and compiled. 
-
-Gin/gonic is not a widely used framework, so not all APM tools provide agents to monitor the requests.
-
-To monitor a request you need to create a tracer between Request and Response, but the project uses OpenAPI. All important requests are already mapped by Yaml files and are compiled when running the tool, blocking access to the methods that perform the requests, making it necessary to change compiled packages to add the monitoring tools (Not possible for this scope). 
-
-As the scope of the project is limited to the slicing of the network and monitoring would be a plus to help understanding, it ends here the monitoring advances. 
 
 It was possible to group all the requests made in the applications, but without tracking the senders, only the receivers.
 
