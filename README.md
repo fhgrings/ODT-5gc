@@ -105,7 +105,7 @@ It was possible to group all the requests made in the applications, but without 
 
 ![](./imgs/pinpoint-tracing.png)
 
-Fonts:
+Refs:
 
 https://opentelemetry.io/docs/instrumentation/go/getting-started/
 
@@ -119,7 +119,7 @@ https://github.com/free5gc/amf/blob/e857bcd091ec69e66a2d390345fb4faf5c5d89e2/con
 
 
 
-## Fonts
+## Refs
 
 https://github.com/pinpoint-apm/pinpoint-go-agent/tree/main/plugin/gin
 
