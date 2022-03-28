@@ -91,19 +91,13 @@ terraform apply --auto-approve
 
 ### Build Kubernetes Environment
 
-```bash
-cd ansible-k8s
-./run.sh
-```
-
 #### If AWS
 To run AWS configuration remember to add [AWS Credentials](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/getting-your-credentials.html)
 
 To install run the commands:
 
 ```bash
-git clone https://github.com/fhgrings/5g-core-network-slicing.git
-cd 5g-core-network-slicing.git/infra/aws-tform-e2e
+cd ansible-k8s
 ./run.sh
 ```
 
