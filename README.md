@@ -1,10 +1,10 @@
 
 
-# 5G Core Network Slicing
+# 5G Core Auto Scale Network Slicing
 
-## Description
+ This project focus on observability to visualize core communication and implement Network Slicing in the future
 
-This project is an easy to use infrastructure and monitoring implementation of the [free5GC](www.free5gc.org)+[free5gc-helm](https://github.com/Orange-OpenSource/towards5gs-helm) project. Running on AWS or Proxmox environment using Terraform and Ansible as IaC. This project focus on observability to visualize core communication and implement Network Slicing in the future
+Technological advances in the fifth-generation (5G) mobile networks are based on native cloud computing platforms and Kubernetes has emerged as the orchestration  ystem for virtualized infrastructure. However, these platforms were not designed to natively support 5G services. To illustrate, Kubernetes is designed to be agnostic to the services which orchestrates and is not able to dynamically reconfigure the 5G core according to existing network resources, i.e., it provides a partial dynamic orchestration to perform network slicing. This paper proposes is an easy to use infrastructure and monitoring implementation of the [free5GC](www.free5gc.org)+[free5gc-helm](https://github.com/Orange-OpenSource/towards5gs-helm) project. Running on AWS or Proxmox environment using Terraform and Ansible as IaC.a solution integrated with Kubernetes to allow full dynamic  orchestration of network slicing at runtime, with neededs adjust in the 5G core. This integration is accomplished through a Kubernetes-integrated controller and   proxy for control plane. The controller adjusts the 5G core and adapts the virtualized infrastructure, while the proxy creates an abstraction for the  ontrol communication between access and transport networks with the core. The experimental results showed a reconfiguration based on total dynamic orchestration without interruption of the services provided, reducing the total reconfiguration requests number by network slices by 47.5%.
 
 
 ## Requirements
@@ -53,11 +53,50 @@ After configuring Free5GC Helm especifications the playbook add Prometheus, Ngin
 
 ![](./imgs/cluster-architecture.png)
 
-### Network Slicing Controller Communications
-![](./imgs/nsc-architecture.png)
+![](./imgs/overview.png)
+
+### Prototype
+![](./imgs/prototype.png.png)
 
 ## Installation and Getting Started
 
+To run you need to follow 3 steps
+* Terraform
+* Build k8s Cluster
+* Deploy 5g Core environment
+
+In Terraform stage you can choose between AWS or Proxmox, so:
+
+If you already have VMs ingore the first step.
+
+
+### Build AWS Infrastructure
+
+Create AWS account
+
+Define AWS Credentials (Access Keys)
+
+```bash
+cd terraform-prov-aws
+./run.sh (Create Buckets for terraform Backend)
+terraform init
+terraform plan
+terraform apply --auto-approve
+```
+
+### Build Local VMs Infrastructure
+![Docs](./terraform-vms-proxmox/README.md)
+
+
+
+### Build Kubernetes Environment
+
+```bash
+cd ansible-k8s
+./run.sh
+```
+
+#### If AWS
 To run AWS configuration remember to add [AWS Credentials](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/getting-your-credentials.html)
 
 To install run the commands:
@@ -70,6 +109,14 @@ cd 5g-core-network-slicing.git/infra/aws-tform-e2e
 
 After Installed enter on [AWS Console](https://us-east-2.console.aws.amazon.com/console/home) and connect to K8S-DEMO-EC2-MASTER-pub;
 
+
+#### If Local VMs
+```bash
+cd  ansible-k8s
+# Update hosts file with IP/Domain name from your master and workers
+./run-local.sh
+```
+
 Run the commands:
 
 ```bash
@@ -81,12 +128,37 @@ kubectl get pods -A
 
 
 
+### Insall Free5gc Core
+```bash
+cd ./ansible-free5gc
+# Update hosts file with IP/Domain name from your master and workers
+./run-local.sh
+```
+
+
+### Check Availability
+```bash
+export KUBECONFIG=/etc/kubernetes/adming.config
+kubectl get pods -A
+```
+Check if all pods are running 
+
+#### FAQ
+Problem
+
+Mongodb pending with message "1 node(s) had volume node affinity conflict"
+
+Solution
+
+Persistent volume with wrong domain refering. Recreate the PV with right destin values (Update on ./ansible-free5gc/k8s-master/tasks/main.yml @task-name[create free5gc pvc] values)
+
+### Monitoring
+
 For a better cluster overview I recommend to install Lens IDE and connect to Kubernetes Cluster:
 
 
 ![](./imgs/cluster-map.jpeg)
 
-### Monitoring
 
 - [x] **PinPoint**
 - [x] **Elastic APM**
