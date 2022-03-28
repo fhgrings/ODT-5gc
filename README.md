@@ -56,7 +56,7 @@ After configuring Free5GC Helm especifications the playbook add Prometheus, Ngin
 ![](./imgs/overview.png)
 
 ### Prototype
-![](./imgs/prototype.png.png)
+![](./imgs/prototype.png)
 
 ## Installation and Getting Started
 
