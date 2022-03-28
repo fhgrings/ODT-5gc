@@ -124,10 +124,6 @@ export KUBECONFIG=/etc/kubernetes/adming.config
 kubectl get pods -A
 ```
 
-![](./imgs/cluster.jpeg)
-
-
-
 ### Insall Free5gc Core
 ```bash
 cd ./ansible-free5gc
@@ -142,6 +138,8 @@ export KUBECONFIG=/etc/kubernetes/adming.config
 kubectl get pods -A
 ```
 Check if all pods are running 
+![](./imgs/cluster.jpeg)
+
 
 #### FAQ
 Problem
