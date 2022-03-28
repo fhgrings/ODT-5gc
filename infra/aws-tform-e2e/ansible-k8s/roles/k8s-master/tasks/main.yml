@@ -4,6 +4,7 @@
   # rm -r ~/.kube/
 
 - name: Initialize k8s cluster
+  tags: init
   command: 
     kubeadm init --service-cidr {{ service_cidr }} \
               --pod-network-cidr {{ pod_network_cidr }} \
@@ -20,6 +21,6 @@
     KUBECONFIG: "/etc/kubernetes/admin.conf"
 
 - name: Install Ingress pod
-  shell: kubectl apply -f https://raw.githubusercontent.com/flannel-io/flannel/f0f9b5262b993c4800726cb5d59f6da3b8a3dc4e/Documentation/kube-flannel.yml
+  shell: kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.1.2/deploy/static/provider/cloud/deploy.yaml
   environment:
     KUBECONFIG: "/etc/kubernetes/admin.conf"

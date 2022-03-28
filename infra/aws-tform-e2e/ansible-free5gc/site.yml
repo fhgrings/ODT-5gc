@@ -1,6 +1,6 @@
 - name: Install k8s and docker packages
   become: yes
-  hosts: tag_Type_k8s
+  hosts: all 
   roles:
     - k8s-all
 
